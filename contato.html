@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[SEU NOME] — Contato</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    
+    .page-header { padding-top: 60px; margin-bottom: 3rem; }
+
+    
+    .form-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      max-width: 580px;
+    }
+
+    
+    .form-grupo {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-grupo label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .form-grupo input,
+    .form-grupo textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      transition: border-color var(--transition);
+      outline: none;
+      resize: vertical;
+    }
+
+    .form-grupo input:focus,
+    .form-grupo textarea:focus {
+      border-color: var(--accent);
+    }
+
+    
+    .form-grupo input.erro,
+    .form-grupo textarea.erro {
+      border-color: #f87171;
+    }
+
+    
+    .msg-erro {
+      font-size: 0.78rem;
+      color: #f87171;
+      display: none;
+    }
+
+    .msg-erro.visivel { display: block; }
+
+    
+    .btn-enviar {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.85rem 2rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: opacity 0.2s, transform 0.15s;
+      width: 100%;
+    }
+
+    .btn-enviar:hover { opacity: 0.88; }
+    .btn-enviar:active { transform: scale(0.98); }
+
+    
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.visivel { display: flex; }
+
+    .modal-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      max-width: 360px;
+      width: 90%;
+      text-align: center;
+      animation: popIn 0.25s ease;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to   { transform: scale(1);    opacity: 1; }
+    }
+
+    .modal-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .modal-box h2 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    .modal-box p { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.5rem; }
+
+    .btn-modal-fechar {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.65rem 1.75rem;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn-modal-fechar:hover { opacity: 0.85; }
+  </style>
+</head>
+<body>
+
+  
+  <nav>
+    <a href="Index.html" class="nav-logo">[PEDRO <span>AUGUSTO</span>]</a>
+
+    <ul class="nav-links" id="nav-links">
+      <li><a href="Index.html">Sobre mim</a></li>
+      <li><a href="formacao.html">Formação</a></li>
+      <li><a href="portfolio.html">Portfólio</a></li>
+      <li><a href="contato.html">Contato</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button id="btn-tema" aria-label="Alternar tema">
+        <span id="tema-icone">☀️</span>
+        <span id="tema-texto">Claro</span>
+      </button>
+      <button id="btn-menu" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  
+  <main>
+    <div class="page-header">
+      <p class="section-label">Fale comigo</p>
+      <h1 class="section-title">Contato</h1>
+      <p class="section-desc">Preencha o formulário abaixo. Todos os campos são obrigatórios.</p>
+    </div>
+
+    
+    <div class="form-wrapper">
+      <form id="form-contato" novalidate>
+
+       
+        <div class="form-grupo">
+          <label for="nome">Nome</label>
+          <input
+            type="text"
+            id="nome"
+            name="nome"
+            placeholder="Seu nome completo"
+            autocomplete="name"
+          />
+         
+          <span class="msg-erro" id="erro-nome">Por favor, informe seu nome.</span>
+        </div>
+
+        
+        <div class="form-grupo">
+          <label for="email">E-mail</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="usuario@dominio.com"
+            autocomplete="email"
+          />
+          <span class="msg-erro" id="erro-email">Informe um e-mail válido (ex: usuario@dominio.com).</span>
+        </div>
+
+       
+        <div class="form-grupo">
+          <label for="mensagem">Mensagem</label>
+          <textarea
+            id="mensagem"
+            name="mensagem"
+            rows="5"
+            placeholder="Escreva sua mensagem aqui..."
+          ></textarea>
+          <span class="msg-erro" id="erro-mensagem">Por favor, escreva uma mensagem.</span>
+        </div>
+
+        <button type="submit" class="btn-enviar">Enviar mensagem</button>
+
+      </form>
+    </div>
+  </main>
+
+  <footer>
+ <p>Feito com HTML5, CSS3 e JavaScript · Pedro Augusto - 5516383 © 2026</p>
+  </footer>
+
+  
+  <div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+    <div class="modal-box">
+      <div class="modal-icon">✅</div>
+      <h2 id="modal-titulo">Mensagem enviada!</h2>
+      <p>Obrigado pelo contato. Responderei em breve.</p>
+      <button class="btn-modal-fechar" id="btn-modal-fechar">Fechar</button>
+    </div>
+  </div>
+
+  
+  <script src="nav.js"></script>
+
+  <script>
+    
+
+    const formContato    = document.getElementById('form-contato');
+    const campoNome      = document.getElementById('nome');
+    const campoEmail     = document.getElementById('email');
+    const campoMensagem  = document.getElementById('mensagem');
+    const modal          = document.getElementById('modal');
+    const btnModalFechar = document.getElementById('btn-modal-fechar');
+
+ 
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+   
+    function marcarErro(campo, erroId, temErro) {
+      const msgErro = document.getElementById(erroId);
+      if (temErro) {
+        campo.classList.add('erro');
+        msgErro.classList.add('visivel');
+      } else {
+        campo.classList.remove('erro');
+        msgErro.classList.remove('visivel');
+      }
+      return temErro;
+    }
+
+   
+    campoNome.addEventListener('blur', function () {
+      marcarErro(campoNome, 'erro-nome', campoNome.value.trim() === '');
+    });
+
+    campoEmail.addEventListener('blur', function () {
+      const val = campoEmail.value.trim();
+      marcarErro(campoEmail, 'erro-email', val === '' || !regexEmail.test(val));
+    });
+
+    campoMensagem.addEventListener('blur', function () {
+      marcarErro(campoMensagem, 'erro-mensagem', campoMensagem.value.trim() === '');
+    });
+
+    
+    formContato.addEventListener('submit', function (evento) {
+      evento.preventDefault(); 
+
+      const erroNome = marcarErro(
+        campoNome, 'erro-nome', campoNome.value.trim() === ''
+      );
+      const erroEmail = marcarErro(
+        campoEmail, 'erro-email',
+        campoEmail.value.trim() === '' || !regexEmail.test(campoEmail.value.trim())
+      );
+      const erroMensagem = marcarErro(
+        campoMensagem, 'erro-mensagem', campoMensagem.value.trim() === ''
+      );
+
+      
+      if (erroNome || erroEmail || erroMensagem) return;
+
+     
+      formContato.reset();
+      modal.classList.add('visivel');
+    });
+
+   
+    btnModalFechar.addEventListener('click', function () {
+      modal.classList.remove('visivel');
+    });
+
+  
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) modal.classList.remove('visivel');
+    });
+
+    
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') modal.classList.remove('visivel');
+    });
+  </script>
+
+</body>
+</html>
